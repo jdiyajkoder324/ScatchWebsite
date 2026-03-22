@@ -11,6 +11,7 @@ router.get("/profile", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
+    console.log(req.body);
     res.send("Register page working");
 });
 
