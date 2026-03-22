@@ -34,7 +34,7 @@ console.log("usersRouter =", usersRouter);
 console.log("productsRouter =", productsRouter);
 
 // Mount routers
-app.use("/index", indexRouter);
+app.use("/", indexRouter);
 app.use("/owners", ownersRouter);
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);
