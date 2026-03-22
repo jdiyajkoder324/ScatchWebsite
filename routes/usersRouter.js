@@ -10,5 +10,9 @@ router.get("/profile", (req, res) => {
     res.send("User Profile Page");
 });
 
+router.post("/register", (req, res) => {
+    res.send("Register page working");
+});
+
 // MUST export router directly
 module.exports = router;
