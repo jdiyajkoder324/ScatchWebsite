@@ -19,9 +19,25 @@ router.post("/register", (req, res) => {
     res.send("Register page working");
 });
 
-router.post("/login", (req, res) => {
-  console.log("Login hit ✅", req.body);
-  res.send("User logged in");
+router.post("/login", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.send("User not found");
+        }
+
+        if (user.password === password) {
+            res.redirect("/products");  // 👈 redirect here
+        } else {
+            res.send("Invalid credentials");
+        }
+
+    } catch (err) {
+        res.send(err.message);
+    }
 });
 
 // MUST export router directly
