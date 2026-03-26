@@ -30,7 +30,7 @@ router.post("/register", async (req, res) => {
             contact
         });
 
-        res.send("User registered successfully");
+        res.redirect("/users/login")
 
     } catch (err) {
         res.send(err.message);
