@@ -4,22 +4,29 @@ const User = require("../models/user-model");
 
 // Users Home
 router.get("/", (req, res) => {
-    res.send("Users Home Page");
+    res.send("index");
 });
+
+router.get("/register",(req,res)=>{
+    res.render("users/register");
+});
+
 
 // Profile
 router.get("/profile", (req, res) => {
-    res.send("User Profile Page");
+    res.send("profile");
 });
 
 // Login Page
 router.get("/login", (req, res) => {
-    res.send("Login page working");
+    res.render("users/login", { loggedin: false });
 });
 
 // Register
 router.post("/register", async (req, res) => {
     try {
+
+        console.log("Form data:", req.body);
 
         const { fullName, email, password, contact } = req.body;
 
@@ -29,6 +36,7 @@ router.post("/register", async (req, res) => {
             password,
             contact
         });
+        console.log("Saved user:", user);
 
         res.redirect("/users/login")
 
@@ -40,8 +48,9 @@ router.post("/register", async (req, res) => {
 // Login
 router.post("/login", async (req, res) => {
     try {
-
         const { email, password } = req.body;
+
+        console.log("Login attempt:", req.body);
 
         const user = await User.findOne({ email });
 

@@ -5,6 +5,9 @@ const path = require("path");
 const session = require("express-session");
 const flash = require("connect-flash");
 
+require("dotenv").config();
+
+
 // Routers
 const indexRouter = require("./routes/index");
 const ownersRouter = require("./routes/ownersRouter");
@@ -12,7 +15,7 @@ const productsRouter = require("./routes/productsRouter");
 const usersRouter = require("./routes/usersRouter");
 
 // DB connection
-const db = require("./config/mongoose-connection");
+const db = require("./config/db");
 
 // Middlewares
 app.use(express.json());
@@ -24,6 +27,13 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.loggedin = false;
+    res.locals.success = "";
+    next();
+});
+
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 
@@ -38,6 +48,8 @@ app.use("/", indexRouter);
 app.use("/owners", ownersRouter);
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);
+
+
 
 // Server
 const PORT = process.env.PORT || 3000;

@@ -5,7 +5,13 @@ const productModel = require("../models/product-model");
 
 // GET /products/ → Products Home Page
 router.get("/", (req, res) => {
-    res.send("Products Home Page");
+    res.send("products");
+});
+
+router.get("/create",(req,res)=>{
+    res.render("products/createproducts",{ 
+        success: req.flash ("success")
+    });
 });
 
 // POST /products/create → Create product with image upload
