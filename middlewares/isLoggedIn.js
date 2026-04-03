@@ -8,7 +8,7 @@ module.exports = function (req, res, next) {
         req.flash("error", "You must log in first");
 
         // Redirect to home or login page
-        return res.redirect("/");
+        return res.redirect("/users/login");
     }
 
     // If logged in, proceed to next middleware / route

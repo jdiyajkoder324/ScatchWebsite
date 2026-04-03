@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const upload = require("../config/multer-config");
 const productModel = require("../models/product-model");
+const userModel = require("../models/user-model");
+const isLoggedIn = require("../middlewares/isLoggedIn");
 
 // GET /products/ → Products Home Page
 router.get("/", (req, res) => {
@@ -12,6 +14,20 @@ router.get("/create",(req,res)=>{
     res.render("products/createproducts",{ 
         success: req.flash ("success")
     });
+});
+
+
+router.get("/view", async (req, res) => {
+    const products = await productModel.find();
+    res.render("products/viewproducts", { products });
+});
+
+router.get("/cart",isLoggedIn, async (req, res) => {
+    const user = await userModel
+        .findOne({ email: req.user.email })
+        .populate("cart");
+
+    res.render("products/cart", { cart: user.cart });
 });
 
 // POST /products/create → Create product with image upload
