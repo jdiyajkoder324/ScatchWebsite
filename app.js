@@ -16,8 +16,7 @@ const ownersRouter = require("./routes/ownersRouter");
 const productsRouter = require("./routes/productsRouter");
 const usersRouter = require("./routes/usersRouter");
 
-// DB connection
-
+app.get('/favicon.ico', (req, res) => res.status(204));
 
 // Middlewares
 app.use(express.json());
