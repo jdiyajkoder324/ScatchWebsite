@@ -7,6 +7,8 @@ const flash = require("connect-flash");
 
 require("dotenv").config();
 
+const connectDB = require("./config/db");
+connectDB();
 
 // Routers
 const indexRouter = require("./routes/index");
@@ -15,7 +17,7 @@ const productsRouter = require("./routes/productsRouter");
 const usersRouter = require("./routes/usersRouter");
 
 // DB connection
-const db = require("./config/db");
+
 
 // Middlewares
 app.use(express.json());
@@ -48,6 +50,10 @@ app.use("/", indexRouter);
 app.use("/owners", ownersRouter);
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);
+
+
+console.log("ENV:", process.env.NODE_ENV);
+console.log("Mongo:", process.env.MONGODB_URI);
 
 
 
