@@ -16,6 +16,7 @@ router.get("/create",(req,res)=>{
     });
 });
 
+const productModel = require("../models/product-model");
 
 router.get("/view", async (req, res) => {
     const products = await productModel.find();

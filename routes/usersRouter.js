@@ -22,6 +22,11 @@ router.get("/login", (req, res) => {
     res.render("users/login", { loggedin: false });
 });
 
+router.get("/products", async (req, res) => {
+  let products = await productModel.find();
+  res.render("products", { products });
+});
+
 // Register
 router.post("/register", async (req, res) => {
     try {
@@ -57,6 +62,7 @@ router.post("/login", async (req, res) => {
         if (!user) {
             return res.send("User not found");
         }
+    
 
         if (user.password === password) {
             res.redirect("/products");
